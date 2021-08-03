@@ -27,6 +27,11 @@ class OptionsMenu extends MusicBeatState
 				new ControlOption(controls,Control.DOWN),
 				new ControlOption(controls,Control.UP),
 				new ControlOption(controls,Control.RIGHT),
+				new ControlOption(controls,Control.MID),
+				new ControlOption(controls,Control.LEFT2),
+				new ControlOption(controls,Control.DOWN2),
+				new ControlOption(controls,Control.UP2),
+				new ControlOption(controls,Control.RIGHT2),
 				new ControlOption(controls,Control.RESET),
 			]),
 			new OptionCategory("Modifiers",[

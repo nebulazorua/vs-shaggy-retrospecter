@@ -98,14 +98,24 @@ class OptionUtils
 				idx = 2;
 			case Control.RIGHT:
 				idx = 3;
-			case Control.RESET:
+			case Control.MID:
 				idx = 4;
+			case Control.LEFT2:
+				idx = 5;
+			case Control.DOWN2:
+				idx = 6;
+			case Control.UP2:
+				idx = 7;
+			case Control.RIGHT2:
+				idx = 8;
+			case Control.RESET:
+				idx = 9;
 			default:
 		}
 		return idx;
 	}
 	public static function getKey(control:Control){
-		return options.controls[getKIdx(control)];
+		return options.controls9K[getKIdx(control)];
 	}
 }
 
@@ -115,7 +125,7 @@ class Options
 	public var dummyInt:Int = 0;
 
 	// gameplay
-	public var controls:Array<FlxKey> = [FlxKey.A,FlxKey.S,FlxKey.K,FlxKey.L,FlxKey.R];
+	public var controls9K:Array<FlxKey> = [FlxKey.A,FlxKey.S,FlxKey.D,FlxKey.F,FlxKey.SPACE,FlxKey.H,FlxKey.J,FlxKey.K,FlxKey.L];
 	public var ghosttapping:Bool = false;
 	public var failForMissing:Bool = false;
 	public var newInput:Bool = true;
@@ -473,7 +483,7 @@ class ControlOption extends Option
 			};
 		};
 		if(pressed!=ESCAPE){
-			OptionUtils.options.controls[OptionUtils.getKIdx(controlType)]=pressed;
+			OptionUtils.options.controls9K[OptionUtils.getKIdx(controlType)]=pressed;
 			key=pressed;
 		}
 		name='${controlType} : ${OptionUtils.getKey(controlType).toString()}';

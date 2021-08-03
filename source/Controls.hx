@@ -32,6 +32,24 @@ enum abstract Action(String) to String from String
 	var PAUSE = "pause";
 	var RESET = "reset";
 	var CHEAT = "cheat";
+
+	var MID = "mid";
+	var MID_R = "mid-release";
+	var MID_P = "mid-press";
+
+	var UP2 = "up2";
+	var LEFT2 = "left2";
+	var RIGHT2 = "right2";
+	var DOWN2 = "down2";
+	var UP2_P = "up2-press";
+	var LEFT2_P = "left2-press";
+	var RIGHT2_P = "right2-press";
+	var DOWN2_P = "down2-press";
+	var UP2_R = "up2-release";
+	var LEFT2_R = "left2-release";
+	var RIGHT2_R = "right2-release";
+	var DOWN2_R = "down2-release";
+
 }
 #else
 @:enum
@@ -54,6 +72,25 @@ abstract Action(String) to String from String
 	var PAUSE = "pause";
 	var RESET = "reset";
 	var CHEAT = "cheat";
+
+	var MID = "mid";
+	var MID_P = "mid-press";
+	var MID_R = "mid-release";
+
+	var UP2 = "up2";
+	var LEFT2 = "left2";
+	var RIGHT2 = "right2";
+	var DOWN2 = "down2";
+	var UP2_P = "up2-press";
+	var LEFT2_P = "left2-press";
+	var RIGHT2_P = "right2-press";
+	var DOWN2_P = "down2-press";
+	var UP2_R = "up2-release";
+	var LEFT2_R = "left2-release";
+	var RIGHT2_R = "right2-release";
+	var DOWN2_R = "down2-release";
+
+
 }
 #end
 
@@ -79,6 +116,12 @@ enum Control
 	BACK;
 	PAUSE;
 	CHEAT;
+
+	UP2;
+	LEFT2;
+	RIGHT2;
+	DOWN2;
+	MID;
 }
 
 enum KeyboardScheme
@@ -112,6 +155,24 @@ class Controls extends FlxActionSet
 	var _pause = new FlxActionDigital(Action.PAUSE);
 	var _reset = new FlxActionDigital(Action.RESET);
 	var _cheat = new FlxActionDigital(Action.CHEAT);
+
+	var _mid = new FlxActionDigital(Action.MID);
+	var _midP = new FlxActionDigital(Action.MID_P);
+	var _midR = new FlxActionDigital(Action.MID_R);
+
+	var _up2 = new FlxActionDigital(Action.UP2);
+	var _left2 = new FlxActionDigital(Action.LEFT2);
+	var _right2 = new FlxActionDigital(Action.RIGHT2);
+	var _down2 = new FlxActionDigital(Action.DOWN2);
+	var _up2P = new FlxActionDigital(Action.UP2_P);
+	var _left2P = new FlxActionDigital(Action.LEFT2_P);
+	var _right2P = new FlxActionDigital(Action.RIGHT2_P);
+	var _down2P = new FlxActionDigital(Action.DOWN2_P);
+	var _up2R = new FlxActionDigital(Action.UP2_R);
+	var _left2R = new FlxActionDigital(Action.LEFT2_R);
+	var _right2R = new FlxActionDigital(Action.RIGHT2_R);
+	var _down2R = new FlxActionDigital(Action.DOWN2_R);
+
 
 	#if (haxe >= "4.0.0")
 	var byName:Map<String, FlxActionDigital> = [];
@@ -207,6 +268,81 @@ class Controls extends FlxActionSet
 	inline function get_CHEAT()
 		return _cheat.check();
 
+	public var MID(get, never):Bool;
+
+	inline function get_MID()
+		return _mid.check();
+
+		public var MID_P(get, never):Bool;
+
+	inline function get_MID_P()
+		return _midP.check();
+
+		public var MID_R(get, never):Bool;
+
+		inline function get_MID_R()
+			return _midR.check();
+
+		public var UP2(get, never):Bool;
+
+		inline function get_UP2()
+			return _up2.check();
+
+		public var LEFT2(get, never):Bool;
+
+		inline function get_LEFT2()
+			return _left2.check();
+
+		public var RIGHT2(get, never):Bool;
+
+		inline function get_RIGHT2()
+			return _right2.check();
+
+		public var DOWN2(get, never):Bool;
+
+		inline function get_DOWN2()
+			return _down2.check();
+
+		public var UP2_P(get, never):Bool;
+
+		inline function get_UP2_P()
+			return _up2P.check();
+
+		public var LEFT2_P(get, never):Bool;
+
+		inline function get_LEFT2_P()
+			return _left2P.check();
+
+		public var RIGHT2_P(get, never):Bool;
+
+		inline function get_RIGHT2_P()
+			return _right2P.check();
+
+		public var DOWN2_P(get, never):Bool;
+
+		inline function get_DOWN2_P()
+			return _down2P.check();
+
+		public var UP2_R(get, never):Bool;
+
+		inline function get_UP2_R()
+			return _up2R.check();
+
+		public var LEFT2_R(get, never):Bool;
+
+		inline function get_LEFT2_R()
+			return _left2R.check();
+
+		public var RIGHT2_R(get, never):Bool;
+
+		inline function get_RIGHT2_R()
+			return _right2R.check();
+
+		public var DOWN2_R(get, never):Bool;
+
+		inline function get_DOWN2_R()
+			return _down2R.check();
+
 	#if (haxe >= "4.0.0")
 	public function new(name, scheme = None)
 	{
@@ -229,6 +365,21 @@ class Controls extends FlxActionSet
 		add(_pause);
 		add(_reset);
 		add(_cheat);
+
+		add(_mid);
+		add(_midR);
+		add(_midP);
+		add(_up2);
+		add(_left2);
+		add(_right2);
+		add(_down2);
+		add(_up2P);
+		add(_left2P);
+		add(_right2P);
+		add(_down2P);
+		add(_up2R);
+		add(_left2R);
+		add(_right2R);
 
 		for (action in digitalActions)
 			byName[action.name] = action;
@@ -257,6 +408,21 @@ class Controls extends FlxActionSet
 		add(_pause);
 		add(_reset);
 		add(_cheat);
+
+		add(_mid);
+		add(_midR);
+		add(_midP);
+		add(_up2);
+		add(_left2);
+		add(_right2);
+		add(_down2);
+		add(_up2P);
+		add(_left2P);
+		add(_right2P);
+		add(_down2P);
+		add(_up2R);
+		add(_left2R);
+		add(_right2R);
 
 		for (action in digitalActions)
 			byName[action.name] = action;
@@ -311,6 +477,12 @@ class Controls extends FlxActionSet
 			case PAUSE: _pause;
 			case RESET: _reset;
 			case CHEAT: _cheat;
+
+			case MID: _mid;
+			case UP2: _up2;
+			case DOWN2: _down2;
+			case LEFT2: _left2;
+			case RIGHT2: _right2;
 		}
 	}
 
@@ -346,6 +518,27 @@ class Controls extends FlxActionSet
 				func(_down, PRESSED);
 				func(_downP, JUST_PRESSED);
 				func(_downR, JUST_RELEASED);
+			case MID:
+				func(_mid, PRESSED);
+				func(_midP, JUST_PRESSED);
+				func(_midR, JUST_RELEASED);
+			case UP2:
+				func(_up2, PRESSED);
+				func(_up2P, JUST_PRESSED);
+				func(_up2R, JUST_RELEASED);
+			case LEFT2:
+				func(_left2, PRESSED);
+				func(_left2P, JUST_PRESSED);
+				func(_left2R, JUST_RELEASED);
+			case RIGHT2:
+				func(_right2, PRESSED);
+				func(_right2P, JUST_PRESSED);
+				func(_right2R, JUST_RELEASED);
+			case DOWN2:
+				func(_down2, PRESSED);
+				func(_down2P, JUST_PRESSED);
+				func(_down2R, JUST_RELEASED);
+
 			case ACCEPT:
 				func(_accept, JUST_PRESSED);
 			case BACK:
@@ -514,7 +707,7 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.DOWN, [FlxKey.DOWN]);
 				inline bindKeys(Control.LEFT, [FlxKey.LEFT]);
 				inline bindKeys(Control.RIGHT, [FlxKey.RIGHT]);
-				for (i in [Control.LEFT,Control.DOWN,Control.UP,Control.RIGHT]){
+				for (i in [Control.LEFT,Control.DOWN,Control.UP,Control.RIGHT,Control.LEFT2,Control.DOWN2,Control.UP2,Control.RIGHT2,Control.MID]){
 					inline bindKeys(i,[OptionUtils.getKey(i)]);
 				}
 

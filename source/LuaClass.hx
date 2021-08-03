@@ -1324,7 +1324,12 @@ class LuaNote extends LuaClass {
     "left",
     "down",
     "up",
-    "right"
+    "right",
+    "mid",
+    "left2",
+    "down2",
+    "up2",
+    "right2"
   ];
   public function new(noteData:Int,plr:Bool){ // god i've gotta make this better
     super();

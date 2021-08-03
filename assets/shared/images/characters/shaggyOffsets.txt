@@ -1,0 +1,10 @@
+idle 0 0
+smile 0 0
+back 0 0
+stand 0 0
+snap 10 92
+snapped 0 80
+singUP -6 0
+singRIGHT 0 0
+singLEFT 10 0
+singDOWN 60 -100
