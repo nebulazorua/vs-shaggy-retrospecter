@@ -32,12 +32,10 @@ class OptionsMenu extends MusicBeatState
 				new ControlOption(controls,Control.DOWN2),
 				new ControlOption(controls,Control.UP2),
 				new ControlOption(controls,Control.RIGHT2),
-				new ControlOption(controls,Control.RESET),
 			]),
 			new OptionCategory("Modifiers",[
 				new ToggleOption("failForMissing","Sudden Death"),
 			]),
-			new ToggleOption("loadModcharts","Load Lua modcharts"),
 			new ScrollOption("ratingWindow",0,OptionUtils.ratingWindowNames.length-1,OptionUtils.ratingWindowNames),
 			new ToggleOption("ghosttapping","Virgin Input","Missing when you hit nothing"),
 			new ToggleOption("botPlay","BotPlay","Let a bot play for you"),

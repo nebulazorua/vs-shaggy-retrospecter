@@ -1128,6 +1128,9 @@ class PlayState extends MusicBeatState
 				add(shaggyT);
 			}
 
+			newSprite.x = spriteX;
+			newSprite.y = spriteY;
+
 			luaSprites[spriteName]=newSprite;
 			add(newSprite);
 
@@ -1315,7 +1318,7 @@ class PlayState extends MusicBeatState
 							}
 							else
 							{
-								if (curr_dial == dialogue.length && currentDial=='sh_bye')
+								if (dface[curr_dial]=='f_sh_kill')
 								{
 									cs_mus.stop();
 								}
@@ -1974,13 +1977,6 @@ class PlayState extends MusicBeatState
 				}
 				if (godCutEnd)
 					{
-						if ((curBeat >= 32 && curBeat < 48) || (curBeat >= 116 * 4 && curBeat < 132 * 4))
-						{
-							if (boyfriend.animation.curAnim.name.startsWith('idle'))
-							{
-								boyfriend.playAnim('scared', true);
-							}
-						}
 
 						var bf_toy = -2000 + Math.sin(rotRate) * 20;
 
@@ -2657,6 +2653,10 @@ class PlayState extends MusicBeatState
 			}
 			else
 				spr.centerOffsets();
+
+			if(spr.ID==4){
+				spr.offset.x -= 4;
+			}
 		});
 
 		if (!inCutscene){
@@ -2780,7 +2780,7 @@ class PlayState extends MusicBeatState
 	private function popUpScore(noteDiff:Float):Void
 	{
 		var offset = 0;
-		if(curStage=='sky')
+		if(curStage=='sky' && !currentOptions.ratingInHUD)
 			offset = -2400;
 		var daRating = ScoreUtils.DetermineRating(noteDiff);
 		if(ScoreUtils.botPlay){
@@ -2878,8 +2878,8 @@ class PlayState extends MusicBeatState
 			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'num' + i + pixelShitPart2));
 			numScore.screenCenter(XY);
 			numScore.x = coolText.x + (43 * daLoop) - 90;
-			numScore.y += 80 + offset;
-
+			numScore.y += 80;
+			numScore.y += offset;
 			if (!curStage.startsWith('school'))
 			{
 				numScore.antialiasing = true;
@@ -2934,6 +2934,7 @@ class PlayState extends MusicBeatState
 						numScore.x += 24;
 					}
 				}
+				numScore.y += offset;
 
 				switch(daRating){
 					case 'sick':
@@ -3147,6 +3148,10 @@ class PlayState extends MusicBeatState
 			}
 			else
 				spr.centerOffsets();
+
+			if(spr.ID==4){
+				spr.offset.x -= 4;
+			}
 		});
 
 	}
@@ -3584,7 +3589,7 @@ class PlayState extends MusicBeatState
 			// Conductor.changeBPM(SONG.bpm);
 
 			// Dad doesnt interupt his own notes
-			if (!dad.animation.curAnim.name.startsWith("sing"))
+			if (!dad.animation.curAnim.name.startsWith("sing") && !inCutscene)
 				dad.dance();
 
 		}
@@ -3705,6 +3710,7 @@ class PlayState extends MusicBeatState
 	var toDfS:Float = 1;
 	public function finalCutscene()
 	{
+		inCutscene=true;
 		cs_zoom = defaultCamZoom;
 		cs_cam = new FlxObject(0, 0, 1, 1);
 		camFollow.setPosition(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
@@ -3723,7 +3729,7 @@ class PlayState extends MusicBeatState
 					cs_cam.x -= 500;
 					cs_cam.y -= 200;
 				case 400:
-					dad.playAnim('smile');
+					dad.playAnim('powerdown',true);
 				case 500:
 					if (!cs_wait)
 					{
@@ -3734,6 +3740,7 @@ class PlayState extends MusicBeatState
 					}
 				case 700:
 					godCutEnd = false;
+					swapCharacterByLuaName("dad","shaggy");
 					FlxG.sound.play(Paths.sound('burst'));
 					dad.playAnim('stand', true);
 					dad.x = 100;
@@ -3862,57 +3869,160 @@ class PlayState extends MusicBeatState
 						];
 				dside = [-1, -1];
 			case 'sh_amazing':
-				dialogue = [
-					"...",
-					"Amazing!"
-				];
-				dface = [
-						"f_sh_smug",
-						"f_sh_smug"
+				// 199 = best
+				// 299 = good
+				// 349 = meh
+				// rest = bad
+				if(misses<=199){
+					dialogue = [
+						"Wow...",
+						"Amazing!"
+					];
+					dface = [
+							"f_sh_con",
+							"f_sh_smug"
 						];
-				dside = [1, 1];
+						dside = [1, 1];
+				}else if(misses<=299){
+					dialogue = [
+						"Wow...",
+						"Pretty good, man!"
+					];
+					dface = [
+							"f_sh_con",
+							"f_sh"
+						];
+						dside = [1, 1];
+				}else if(misses<=349){
+					dialogue = [
+						"...",
+						"Hm..."
+					];
+					dface = [
+							"f_sh_ang",
+							"f_sh_ang"
+						];
+						dside = [1, 1];
+				}else{
+					dialogue = [
+						"...",
+						"Huh."
+					];
+					dface = [
+							"f_sh_ang",
+							"f_sh_ang"
+						];
+						dside = [1, 1];
+				}
+
+
+
+
 			case 'sh_expo':
-				dialogue = [
-					"I scared you didn't I?",
-					"bee",
-					"I don't even need a finger snap to like,\nbring every dead being in this planet\nback to life",
-					"Wouldn't have killed your dog if\nI didn't know that",
-					"...",
-					"Anyways, to tell you the truth Scooby\nwas looking for you.",
-					"We came to your universe because we\nheard a teenager was like, immortal",
-					"And you beat me first try!",
-					"From my perspective at least...",
-					"I'm guessing you have some time resetting\nability so I'm glad I didn't go\nfull power against you.",
-					"baap be?",
-					"0.002%",
-					"a",
-					"Welp, we gotta go and stuff."
-				];
-				dface = [
-						"f_sh_smug",
-						"f_bf_a",
-						"f_sh",
-						"f_gf",
-						"f_sh_ser", "f_sh", "n", "f_sh_smug", "f_sh_con", "n",
-						"f_bf",
-						"f_sh",
-						"f_bf_a",
-						"f_sh"
+				if(misses<=199){
+					dialogue = [
+						"You were really, like, able to keep up with\nall of that, huh?",
+						"I suppose I'm nothing but another foe you've\ntrampled on..",
+						"Skadoo beep ba!"
+					];
+					dface = [
+							"f_sh_ser",
+							"f_sh_ser",
+							"f_bf_burn"
 						];
-				dside = [1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, -1, 1];
+						dside = [1, 1, -1];
+				}else if(misses<=299){
+					dialogue = [
+						"You sure did give a good matchup, man!",
+						"Your technique could be just a\nlittle better, though..",
+						"Bee.",
+						"I still had a great time!"
+					];
+					dface = [
+							"f_sh",
+							"f_sh_sad",
+							"f_bf",
+							"f_sh_smug"
+						];
+						dside = [1, 1, -1, 1];
+				}else if(misses<=349){
+					dialogue = [
+						"Not great, but not.. awful?",
+						"I'm like, just a little disappointed.",
+						"a",
+						"I suppose we like, have our off days, huh?"
+					];
+					dface = [
+							"f_sh_con",
+							"f_sh_sad",
+							"f_bf_a",
+							"f_sh_con"
+						];
+						dside = [1, 1, -1, 1];
+				}else{
+					dialogue = [
+						"That..",
+						"I'm sorry man, that was just like, awful.",
+						"buh.",
+						"You really believe you can make do like this?"
+					];
+					dface = [
+							"f_sh_ang",
+							"f_sh_ang",
+							"f_bf_a",
+							"f_sh_con"
+						];
+						dside = [1, 1, -1, 1];
+				}
+
 			case "sh_bye":
-				dialogue = [
-					"I heard they're gathering up some powerful\nindividuals for a tournament in\na universe close by...",
-					"And if saitama's gonna be there, I can't\nmiss it.",
-					"So like, goodbye! For now at least."
-				];
-				dface = [
-						"f_sh",
-						"f_sh_smug",
-						"f_sh",
-						"f_sh_kill"
-				];
-				dside = [1, 1, 1, 1];
+				if(misses<=199){
+					dialogue = [
+						"You did great, man!",
+						"We should totally like, do this again!",
+						"But, just a word of warning..",
+						"Don't feel like you could ever match up to me\nin a real fight."
+					];
+					dface = [
+							"f_sh",
+							"f_sh",
+							"f_sh_ang",
+							"f_sh_kill"
+						];
+						dside = [1, 1, 1, 1];
+				}else if(misses<=299){
+					dialogue = [
+						"Like, until we meet again!",
+						"Just, don't hold back next time.",
+					];
+					dface = [
+							"f_sh",
+							"f_sh_kill"
+						];
+						dside = [1, 1];
+				}else if(misses<=349){
+					dialogue = [
+						"It's no worries, we can always try again\nanother time.",
+						"Don't disappoint me again.",
+					];
+					dface = [
+							"f_sh_con",
+							"f_sh_kill"
+						];
+						dside = [1, 1];
+					}else{
+						dialogue = [
+							"Well, whatever.",
+							"I'll see myself out.",
+							"Seems like your reset ability is your only\nsaving grace."
+						];
+						dface = [
+								"f_sh_ang",
+								"f_sh_ang",
+								"f_sh_kill"
+							];
+							dside = [1, 1, 1];
+					}
 			case "troleo":
 				dialogue = [
 					"Chupenme la corneta giles culiaooos!!!!",

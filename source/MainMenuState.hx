@@ -128,9 +128,9 @@ class MainMenuState extends MusicBeatState
 
 		character = new Character(0,0,'menushaggy',false);
 		character.screenCenter(XY);
-		character.x += 250;
-		character.y -= 25;
-		character.scrollFactor.set(.1,.1);
+		character.x += 290;
+		character.y += 25;
+		character.scrollFactor.set(.075,.075);
 		character.playAnim("back");
 		add(character);
 
