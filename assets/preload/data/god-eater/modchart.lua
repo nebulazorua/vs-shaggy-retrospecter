@@ -65,6 +65,10 @@ function beatHit()
 		HUDCam.zoom = HUDCam.zoom + .025;
 	end
 end
+local setWinX=false;
+
+local winX = 0;
+local winY = 0;
 
 local modchartPhases = {
 	{step=256,phase=1};
@@ -75,13 +79,11 @@ local modchartPhases = {
 	{step=2240,phase=1};
 	{step=2496,phase=2};
 	{step=2784,phase=2.5};
-	{step=3352,phase=1.5};
 	{step=3640,phase=2};
-	{step=3808,phase=1};
-	{step=3824,phase=1.5};
 	{step=3840,phase=3};
 	{step=4608,phase=2.5};
 	{step=4736,phase=4};
+	{step=4880,phase=4.5};
 }
 
 table.sort(modchartPhases,function(a,b)
@@ -100,7 +102,11 @@ function stepHit()
 		prevPhase=phase;
 	end
 	modchartPhase = prevPhase;
-
+	if(curStep>=3840 and not setWinX)then
+		winX = window.x;
+		winY = window.y;
+		setWinX=true;
+	end
 	if(curStep==1184)then
 		cameraTHROBBING=false;
 	elseif(curStep==1472 or curStep==2496)then
@@ -180,35 +186,6 @@ function stepHit()
     elseif(curStep>=256 and curStep<1000)then
         tween(camshit,{zoom=defaultZoom},0.5,"inOutQuad")
 	end
-	
-	if(curStep>=4608)then
-	    leftPlrNote.yOffset = -40
-		downPlrNote.yOffset = 40
-		upPlrNote.yOffset = -40
-		rightPlrNote.yOffset = 40
-		midPlrNote.yOffset = -40
-		left2PlrNote.yOffset = 40
-		down2PlrNote.yOffset = -40
-		up2PlrNote.yOffset = 40
-		right2PlrNote.yOffset = -40
-	
-	    leftDadNote.yOffset = -40
-		downDadNote.yOffset = 40
-		upDadNote.yOffset = -40
-		rightDadNote.yOffset = 40
-		midDadNote.yOffset = -40
-		left2DadNote.yOffset = 40
-		down2DadNote.yOffset = -40
-		up2DadNote.yOffset = 40
-		right2DadNote.yOffset = -40
-		
-		for i=1,#p1Receptors do	
-			p1Receptors[i].xOffset = 0
-		end
-		for i=1,#p2Receptors do	
-			p2Receptors[i].xOffset = 0
-		end
-	end
 end
 
 local shakeShit = 0;
@@ -233,9 +210,9 @@ end
 function applyArrowMovement(receptors)
 	local currentBeat = (songPosition / 1000)*(bpm/60)
 	for i=1,#receptors do
+		local receptor = receptors[i];
 		local xOffset = receptor.xOffset;
 		local yOffset = receptor.yOffset;
-		local receptor = receptors[i];
 		if(modchartPhase==1)then
 			xOffset = 15*math.sin(currentBeat)
 			yOffset = 20*math.cos(currentBeat/2)+10
@@ -259,30 +236,54 @@ function applyArrowMovement(receptors)
 			yOffset = 60*math.cos(currentBeat+i)
 		end
 		if(modchartPhase==3)then
-			xOffset = 32*math.sin(currentBeat*.5)
-			yOffset = 35*math.cos(currentBeat)+10
-		end
-		if(modchartPhase==4)then
 			xOffset = 32*math.sin(currentBeat+i)
 			yOffset = 25*math.cos((currentBeat + i)*math.pi)+10
+		end
+		if(modchartPhase==4)then
+			xOffset=0;
+			if(i%2==1)then
+				yOffset = -40
+			else
+				yOffset = 40;
+			end
+		end
+		if(modchartPhase==4.5)then
+			receptor.xOffset=0;
+			if(i%2==1)then
+				receptor.yOffset = numLerp(receptor.yOffset,0,.03)
+			else
+				receptor.yOffset = numLerp(receptor.yOffset,0,.03)
+			end
 		end
 		if(modchartPhase==0)then
 			xOffset = 0
 			yOffset = 0
 		end
-
-		receptors[i].xOffset = numLerp(receptors[i].xOffset,xOffset,.5)
+		if(modchartPhase~=4.5)then
+			receptor.xOffset = numLerp(receptor.xOffset,xOffset,.1)
+			receptor.yOffset = numLerp(receptor.yOffset,yOffset,.1)
+		end
 	end
 end
 
 function update(elapsed)
 	if(shakeShit>0)then
-		shakeShit = shakeShit-.35;
+		shakeShit = shakeShit - .15;
 	end
 	if(shakeShit<0)then shakeShit=0 end
-
-	HUDCam.angle = math.random(-shakeShit*100,shakeShit*100)/100;
-	gameCam.angle = math.random(-shakeShit*100,shakeShit*100)/100;
+	if(curStep>0)then
+		HUDCam.angle = math.random(-shakeShit*100,shakeShit*100)/100;
+		gameCam.angle = math.random(-shakeShit*100,shakeShit*100)/100;
+	end
+	if(curStep>3840 and setWinX)then
+		if(curStep>=4736)then
+			window.x = winX + (math.random(-shakeShit*100,shakeShit*100)/100)*.5;
+			window.y = winY + (math.random(-shakeShit*100,shakeShit*100)/100)*.5;
+		else
+			window.x = winX + (math.random(-shakeShit*100,shakeShit*100)/100)*2;
+			window.y = winY + (math.random(-shakeShit*100,shakeShit*100)/100)*2;
+		end
+	end
 
     for i = #tweens,1,-1 do
         if(tweens[i]:update(elapsed))then
