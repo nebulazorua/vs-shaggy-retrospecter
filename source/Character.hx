@@ -136,6 +136,71 @@ class Character extends FlxSprite
 				loadOffsets();
 
 				playAnim('idle', true);
+
+			case 'ui_shaggy':
+				tex = Paths.getSparrowAtlas('characters/shaggy_ui','shared');
+				frames = tex;
+				animation.addByPrefix('idle', 'ushaggy_idle', 7, false);
+				animation.addByPrefix('singUP', 'ushaggy_up', 28, false);
+				animation.addByPrefix('singDOWN', 'ushaggy_down', 28, false);
+				animation.addByPrefix('singLEFT', 'ushaggy_left', 28, false);
+				animation.addByPrefix('singRIGHT', 'ushaggy_right', 28, false);
+				animation.addByPrefix('smile', 'ushaggy_smile', 7, false);
+				animation.addByPrefix('stand', 'ushaggy_stand', 7, false);
+				animation.addByPrefix('powerdown', 'ushaggy_powerdown', 7, false);
+				loadOffsets();
+
+				playAnim('idle', true);
+			case 'shaggypowerup':
+				tex = Paths.getSparrowAtlas('characters/shaggyPowerUp','shared');
+				frames = tex;
+				animation.addByPrefix('idle', 'ushaggy_powerup', 7, false);
+				animation.addByPrefix('singUP', 'ushaggy_powerup', 28, false);
+				animation.addByPrefix('singDOWN', 'ushaggy_powerup', 28, false);
+				animation.addByPrefix('singLEFT', 'ushaggy_powerup', 28, false);
+				animation.addByPrefix('singRIGHT', 'ushaggy_powerup', 28, false);
+				animation.addByPrefix('stand', 'ushaggy_powerup', 7, false);
+				animation.addByPrefix('powerdown', 'ushaggy_powerup', 7, false);
+				animation.addByPrefix('YOUREFUCKED', 'ushaggy_powerup', 7, false);
+				loadOffsets();
+
+				playAnim('idle', true);
+
+			case 'menushaggy':
+				tex = Paths.getSparrowAtlas('characters/pshaggy','shared');
+				frames = tex;
+				animation.addByPrefix('idle', 'pshaggy_idle', 7, false);
+				animation.addByPrefix('singUP', 'pshaggy_up', 28, false);
+				animation.addByPrefix('singDOWN', 'pshaggy_down', 28, false);
+				animation.addByPrefix('singLEFT', 'pshaggy_left', 28, false);
+				animation.addByPrefix('singRIGHT', 'pshaggy_right', 28, false);
+				animation.addByPrefix('back', 'pshaggy_back', 28, false);
+				animation.addByPrefix('snap', 'pshaggy_snap', 30, false);
+				animation.addByPrefix('snapped', 'pshaggy_did_snap', 28, false);
+				animation.addByPrefix('smile', 'pshaggy_smile', 30, false);
+				animation.addByPrefix('stand', 'pshaggy_stand', 30, false);
+
+				loadOffsets('shaggy');
+
+				playAnim('idle', true);
+			case 'scooby':
+					tex = Paths.getSparrowAtlas('characters/scooby','shared');
+					frames = tex;
+					animation.addByPrefix('walk', 'scoob_walk', 30, false);
+					animation.addByPrefix('idle', 'scoob_idle', 30, false);
+					animation.addByPrefix('scare', 'scoob_scare', 24, false);
+					animation.addByPrefix('blur', 'scoob_blur', 30, false);
+					animation.addByPrefix('half', 'scoob_half', 30, false);
+					animation.addByPrefix('fall', 'scoob_fall', 30, false);
+
+					addOffset("walk", 100, 60);
+					addOffset("idle");
+					addOffset("scare", 40);
+					addOffset("blur");
+					addOffset("half");
+					addOffset("fall", 420, 0);
+
+					playAnim('walk', true);
 		default:
 			var xmlData:String = '';
 			/*if(Cache.xmlData[curCharacter]!=null){
@@ -199,15 +264,18 @@ class Character extends FlxSprite
 		}
 	}
 
-	public function loadOffsets(){
+	public function loadOffsets(?char:String){
 		//var offsets = CoolUtil.coolTextFile(Paths.txtImages('characters/'+curCharacter+"Offsets"));
 		var offsets:Array<String>;
-		if(Cache.offsetData[curCharacter]!=null){
-			offsets = CoolUtil.coolTextFile2(Cache.offsetData[curCharacter]);
+		if(char==null)
+			char=curCharacter;
+
+		if(Cache.offsetData[char]!=null){
+			offsets = CoolUtil.coolTextFile2(Cache.offsetData[char]);
 		}else{
-			var data = File.getContent("assets/shared/images/characters/"+curCharacter+"Offsets.txt");
+			var data = File.getContent("assets/shared/images/characters/"+char+"Offsets.txt");
 			offsets = CoolUtil.coolTextFile2(data);
-			Cache.offsetData[curCharacter] = data;
+			Cache.offsetData[char] = data;
 		}
 		for(s in offsets){
 			var stuff:Array<String> = s.split(" ");

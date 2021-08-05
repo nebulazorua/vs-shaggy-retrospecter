@@ -39,7 +39,7 @@ class OptionsMenu extends MusicBeatState
 			]),
 			new ToggleOption("loadModcharts","Load Lua modcharts"),
 			new ScrollOption("ratingWindow",0,OptionUtils.ratingWindowNames.length-1,OptionUtils.ratingWindowNames),
-			new ToggleOption("ghosttapping","Ghost-tapping","Missing when you hit nothing"),
+			new ToggleOption("ghosttapping","Virgin Input","Missing when you hit nothing"),
 			new ToggleOption("botPlay","BotPlay","Let a bot play for you"),
 			new StateOption("Calibrate Offset",new SoundOffsetState()),
 		]),

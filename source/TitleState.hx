@@ -413,6 +413,7 @@ class TitleState extends MusicBeatState
 				addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
 
 			case 16:
+				Conductor.changeBPM(200);
 				skipIntro();
 		}
 	}

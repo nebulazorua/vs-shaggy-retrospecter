@@ -1,0 +1,8 @@
+idle 0 0
+stand -170 -160
+powerdown 0 0
+YOUREFUCKED 32 30
+singUP 74 130
+singRIGHT 30 0
+singLEFT 70 0
+singDOWN 150 -100

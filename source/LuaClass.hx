@@ -551,7 +551,6 @@ class LuaSprite extends LuaClass {
       ease: Reflect.field(FlxEase,style),
     });
     return 1;
-
   }
 
   private static var changeAnimFramerateC:cpp.Callable<StatePointer->Int> = cpp.Callable.fromStaticFunction(changeAnimFramerate);

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="shaggy_ui.png">
+	<!-- Created with Adobe Animate version 21.0.5.40714 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="ushaggy_down0000" x="4" y="4" width="919" height="916" pivotX="603.75" pivotY="803" frameX="-32" frameY="-24" frameWidth="951" frameHeight="961"/>
+	<SubTexture name="ushaggy_down0001" x="927" y="4" width="916" height="952" frameX="0" frameY="-9" frameWidth="951" frameHeight="961"/>
+	<SubTexture name="ushaggy_down0002" x="1847" y="4" width="909" height="955" frameX="0" frameY="-5" frameWidth="951" frameHeight="961"/>
+	<SubTexture name="ushaggy_down0003" x="2760" y="4" width="899" height="960" frameX="-6" frameY="0" frameWidth="951" frameHeight="961"/>
+	<SubTexture name="ushaggy_down0004" x="3663" y="4" width="896" height="959" frameX="-9" frameY="-1" frameWidth="951" frameHeight="961"/>
+	<SubTexture name="ushaggy_down0005" x="3663" y="4" width="896" height="959" frameX="-9" frameY="-1" frameWidth="951" frameHeight="961"/>
+	<SubTexture name="ushaggy_down0006" x="3663" y="4" width="896" height="959" frameX="-9" frameY="-1" frameWidth="951" frameHeight="961"/>
+	<SubTexture name="ushaggy_down0007" x="3663" y="4" width="896" height="959" frameX="-9" frameY="-1" frameWidth="951" frameHeight="961"/>
+	<SubTexture name="ushaggy_down0008" x="3663" y="4" width="896" height="959" frameX="-9" frameY="-1" frameWidth="951" frameHeight="961"/>
+	<SubTexture name="ushaggy_down0009" x="3663" y="4" width="896" height="959" frameX="-9" frameY="-1" frameWidth="951" frameHeight="961"/>
+	<SubTexture name="ushaggy_idle0000" x="4563" y="4" width="668" height="1104" pivotX="448.45" pivotY="938.6" frameX="-11" frameY="-1" frameWidth="679" frameHeight="1105"/>
+	<SubTexture name="ushaggy_idle0001" x="4563" y="4" width="668" height="1104" frameX="-11" frameY="-1" frameWidth="679" frameHeight="1105"/>
+	<SubTexture name="ushaggy_idle0002" x="5235" y="4" width="672" height="1101" frameX="-3" frameY="0" frameWidth="679" frameHeight="1105"/>
+	<SubTexture name="ushaggy_idle0003" x="5235" y="4" width="672" height="1101" frameX="-3" frameY="0" frameWidth="679" frameHeight="1105"/>
+	<SubTexture name="ushaggy_idle0004" x="5911" y="4" width="673" height="1100" frameX="0" frameY="0" frameWidth="679" frameHeight="1105"/>
+	<SubTexture name="ushaggy_idle0005" x="5911" y="4" width="673" height="1100" frameX="0" frameY="0" frameWidth="679" frameHeight="1105"/>
+	<SubTexture name="ushaggy_idle0006" x="5911" y="4" width="673" height="1100" frameX="0" frameY="0" frameWidth="679" frameHeight="1105"/>
+	<SubTexture name="ushaggy_idle0007" x="5911" y="4" width="673" height="1100" frameX="0" frameY="0" frameWidth="679" frameHeight="1105"/>
+	<SubTexture name="ushaggy_idle0008" x="5911" y="4" width="673" height="1100" frameX="0" frameY="0" frameWidth="679" frameHeight="1105"/>
+	<SubTexture name="ushaggy_idle0009" x="5911" y="4" width="673" height="1100" frameX="0" frameY="0" frameWidth="679" frameHeight="1105"/>
+	<SubTexture name="ushaggy_left0000" x="6588" y="4" width="749" height="1077" pivotX="412.7" pivotY="941.3" frameX="0" frameY="-25" frameWidth="749" frameHeight="1121"/>
+	<SubTexture name="ushaggy_left0001" x="7341" y="4" width="708" height="1114" frameX="-18" frameY="-5" frameWidth="749" frameHeight="1121"/>
+	<SubTexture name="ushaggy_left0002" x="4" y="1122" width="688" height="1121" frameX="-16" frameY="0" frameWidth="749" frameHeight="1121"/>
+	<SubTexture name="ushaggy_left0003" x="696" y="1122" width="682" height="1120" frameX="-16" frameY="-1" frameWidth="749" frameHeight="1121"/>
+	<SubTexture name="ushaggy_left0004" x="696" y="1122" width="682" height="1120" frameX="-16" frameY="-1" frameWidth="749" frameHeight="1121"/>
+	<SubTexture name="ushaggy_left0005" x="696" y="1122" width="682" height="1120" frameX="-16" frameY="-1" frameWidth="749" frameHeight="1121"/>
+	<SubTexture name="ushaggy_left0006" x="696" y="1122" width="682" height="1120" frameX="-16" frameY="-1" frameWidth="749" frameHeight="1121"/>
+	<SubTexture name="ushaggy_left0007" x="696" y="1122" width="682" height="1120" frameX="-16" frameY="-1" frameWidth="749" frameHeight="1121"/>
+	<SubTexture name="ushaggy_left0008" x="696" y="1122" width="682" height="1120" frameX="-16" frameY="-1" frameWidth="749" frameHeight="1121"/>
+	<SubTexture name="ushaggy_left0009" x="696" y="1122" width="682" height="1120" frameX="-16" frameY="-1" frameWidth="749" frameHeight="1121"/>
+	<SubTexture name="ushaggy_powerdown0000" x="1382" y="1122" width="673" height="1100" pivotX="448.45" pivotY="938.6"/>
+	<SubTexture name="ushaggy_powerdown0001" x="1382" y="1122" width="673" height="1100"/>
+	<SubTexture name="ushaggy_powerdown0002" x="2059" y="1122" width="673" height="1099" frameX="0" frameY="-1" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_powerdown0003" x="2059" y="1122" width="673" height="1099" frameX="0" frameY="-1" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_powerdown0004" x="2736" y="1122" width="673" height="1096" frameX="0" frameY="-4" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_powerdown0005" x="2736" y="1122" width="673" height="1096" frameX="0" frameY="-4" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_powerdown0006" x="3413" y="1122" width="673" height="1093" frameX="0" frameY="-7" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_powerdown0007" x="3413" y="1122" width="673" height="1093" frameX="0" frameY="-7" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_powerdown0008" x="3413" y="1122" width="673" height="1093" frameX="0" frameY="-7" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_powerdown0009" x="3413" y="1122" width="673" height="1093" frameX="0" frameY="-7" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_powerdown0010" x="4090" y="1122" width="324" height="749" frameX="-173" frameY="-174" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_powerdown0011" x="4090" y="1122" width="324" height="749" frameX="-173" frameY="-174" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_powerdown0012" x="4418" y="1122" width="324" height="750" frameX="-173" frameY="-173" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_powerdown0013" x="4418" y="1122" width="324" height="750" frameX="-173" frameY="-173" frameWidth="673" frameHeight="1100"/>
+	<SubTexture name="ushaggy_right0000" x="4746" y="1122" width="780" height="1055" pivotX="527.05" pivotY="937.65" frameX="0" frameY="-21" frameWidth="780" frameHeight="1094"/>
+	<SubTexture name="ushaggy_right0001" x="5530" y="1122" width="747" height="1088" frameX="-26" frameY="-6" frameWidth="780" frameHeight="1094"/>
+	<SubTexture name="ushaggy_right0002" x="6281" y="1122" width="737" height="1091" frameX="-29" frameY="-2" frameWidth="780" frameHeight="1094"/>
+	<SubTexture name="ushaggy_right0003" x="7022" y="1122" width="728" height="1093" frameX="-35" frameY="0" frameWidth="780" frameHeight="1094"/>
+	<SubTexture name="ushaggy_right0004" x="7022" y="1122" width="728" height="1093" frameX="-35" frameY="0" frameWidth="780" frameHeight="1094"/>
+	<SubTexture name="ushaggy_right0005" x="7022" y="1122" width="728" height="1093" frameX="-35" frameY="0" frameWidth="780" frameHeight="1094"/>
+	<SubTexture name="ushaggy_right0006" x="7022" y="1122" width="728" height="1093" frameX="-35" frameY="0" frameWidth="780" frameHeight="1094"/>
+	<SubTexture name="ushaggy_right0007" x="7022" y="1122" width="728" height="1093" frameX="-35" frameY="0" frameWidth="780" frameHeight="1094"/>
+	<SubTexture name="ushaggy_right0008" x="7022" y="1122" width="728" height="1093" frameX="-35" frameY="0" frameWidth="780" frameHeight="1094"/>
+	<SubTexture name="ushaggy_right0009" x="7022" y="1122" width="728" height="1093" frameX="-35" frameY="0" frameWidth="780" frameHeight="1094"/>
+	<SubTexture name="ushaggy_stand0000" x="7754" y="1122" width="297" height="757" pivotX="255.7" pivotY="765.6"/>
+	<SubTexture name="ushaggy_up0000" x="4" y="2247" width="849" height="1136" pivotX="527.7" pivotY="1046.3" frameX="0" frameY="-84" frameWidth="849" frameHeight="1224"/>
+	<SubTexture name="ushaggy_up0001" x="857" y="2247" width="779" height="1199" frameX="-35" frameY="0" frameWidth="849" frameHeight="1224"/>
+	<SubTexture name="ushaggy_up0002" x="1640" y="2247" width="843" height="1142" frameX="-3" frameY="-26" frameWidth="849" frameHeight="1224"/>
+	<SubTexture name="ushaggy_up0003" x="4" y="2247" width="849" height="1136" frameX="0" frameY="-37" frameWidth="849" frameHeight="1224"/>
+	<SubTexture name="ushaggy_up0004" x="4" y="2247" width="849" height="1136" frameX="0" frameY="-37" frameWidth="849" frameHeight="1224"/>
+	<SubTexture name="ushaggy_up0005" x="2487" y="2247" width="849" height="1136" frameX="0" frameY="-56" frameWidth="849" frameHeight="1224"/>
+	<SubTexture name="ushaggy_up0006" x="2487" y="2247" width="849" height="1136" frameX="0" frameY="-56" frameWidth="849" frameHeight="1224"/>
+	<SubTexture name="ushaggy_up0007" x="2487" y="2247" width="849" height="1136" frameX="0" frameY="-83" frameWidth="849" frameHeight="1224"/>
+	<SubTexture name="ushaggy_up0008" x="2487" y="2247" width="849" height="1136" frameX="0" frameY="-89" frameWidth="849" frameHeight="1224"/>
+	<SubTexture name="ushaggy_up0009" x="2487" y="2247" width="849" height="1136" frameX="0" frameY="-89" frameWidth="849" frameHeight="1224"/>
+</TextureAtlas>

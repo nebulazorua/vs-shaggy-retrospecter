@@ -173,6 +173,7 @@ class StoryMenuState extends MusicBeatState
 				{
 					FlxG.sound.play(Paths.sound('snap'));
 					FlxG.sound.play(Paths.sound('undSnap'));
+					FlxG.camera.shake(.1,.3);
 					new FlxTimer().start(0.06, function(tmr2:FlxTimer){
 						character.playAnim('snapped', true);
 					});

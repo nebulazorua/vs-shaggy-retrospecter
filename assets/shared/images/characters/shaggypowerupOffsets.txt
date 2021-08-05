@@ -1,0 +1,8 @@
+idle -18 -28
+stand -18 -27
+powerdown -18 -28
+YOUREFUCKED -18 -28
+singUP -18 -28
+singRIGHT -18 -28
+singLEFT -18 -28
+singDOWN -18 -28

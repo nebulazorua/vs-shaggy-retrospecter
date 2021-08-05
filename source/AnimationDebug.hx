@@ -193,7 +193,7 @@ class AnimationDebug extends FlxState
 		if(ghostBF!=null)
 			layeringbullshit.remove(ghostBF);
 
-		ghostBF = new Character(0, 0, daAnim);
+		ghostBF = new Character(0, 0, "shaggy");
 		ghostBF.alpha = .5;
 		ghostBF.screenCenter();
 		ghostBF.debugMode = true;

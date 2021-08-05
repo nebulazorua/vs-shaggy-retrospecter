@@ -172,7 +172,7 @@ class Note extends FlxSprite
 				prevNote.lastSustainPiece=false;
 				prevNote.animation.play('${colors[noteData]}hold');
 				if(!beingCharted)
-					prevNote.scale.y *= ((.45*Conductor.stepCrochet*PlayState.getFNFSpeed(strumTime))+1)/prevNote.height;
+					prevNote.scale.y *= Conductor.stepCrochet/100*1.5*PlayState.getFNFSpeed(strumTime)*(0.7/noteScale);
 				prevNote.updateHitbox();
 
 				prevNote.offset.y += -prevNote.offset.y;
@@ -191,7 +191,7 @@ class Note extends FlxSprite
 		{
 			if(isSustainNote){
 				if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * 1.5)
-					&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * .25))
+					&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * .75))
 					canBeHit = true;
 				else
 					canBeHit = false;

