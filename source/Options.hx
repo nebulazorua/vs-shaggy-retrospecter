@@ -125,6 +125,7 @@ class Options
 	public var dummyInt:Int = 0;
 
 	// gameplay
+	public var moveWindow:Bool = true;
 	public var controls9K:Array<FlxKey> = [FlxKey.A,FlxKey.S,FlxKey.D,FlxKey.F,FlxKey.SPACE,FlxKey.H,FlxKey.J,FlxKey.K,FlxKey.L];
 	public var ghosttapping:Bool = true;
 	public var failForMissing:Bool = false;

@@ -196,6 +196,7 @@ class MainMenuState extends MusicBeatState
 
 					PlayState.SONG = Song.loadFromJson("god-eater-hard", "god-eater");
 					PlayState.storyWeek = 1;
+					PlayState.skipIntro=false;
 					PlayState.campaignScore = 0;
 					new FlxTimer().start(3, function(tmr:FlxTimer)
 					{

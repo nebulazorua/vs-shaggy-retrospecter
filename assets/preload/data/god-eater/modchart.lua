@@ -14,6 +14,7 @@ function numLerp(a,b,c)
     return a+(b-a)*c
 end
 local x = dad.x;
+local y = dad.y;
 dad.visible=false;
 dad.x = -25000;
 dad:changeCharacter("ui_shaggy")
@@ -21,6 +22,7 @@ dad:changeCharacter("shaggypowerup")
 dad:changeCharacter("shaggy")
 dad.visible=true;
 dad.x=x;
+dad.y=y;
 
 local blackfade = newSprite(-800,-2000, true)
 blackfade:loadGraphic('BlackFade')

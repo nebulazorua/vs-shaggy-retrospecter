@@ -1,6 +1,6 @@
-idle -150 41
-powerdown -150 40
-singUP -86 90
-singRIGHT -100 20
-singLEFT -160 20
-singDOWN 10 -90
+idle 0 0
+powerdown -2 -1
+singUP 87 79
+singRIGHT 64 -82
+singLEFT 1 -71
+singDOWN 158 -147

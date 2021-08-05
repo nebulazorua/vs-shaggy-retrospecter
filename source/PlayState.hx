@@ -878,6 +878,17 @@ class PlayState extends MusicBeatState
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
 
+		if(ScoreUtils.botPlay){
+			var botplayTxt = new FlxText(0, 80, 0, "[BOTPLAY]", 30);
+			botplayTxt.cameras = [camHUD];
+			botplayTxt.screenCenter(X);
+			botplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+			botplayTxt.scrollFactor.set();
+
+			add(botplayTxt);
+		}
+		
+
 		strumLineNotes.cameras = [camHUD];
 		renderedNotes.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
@@ -1102,6 +1113,7 @@ class PlayState extends MusicBeatState
 			trace(currAnim);
 			remove(sprite);
 			// TODO: Make this BETTER!!!
+			var prev:String= sprite.curCharacter;
 			if(spriteName=="bf"){
 				boyfriend = new Boyfriend(spriteX,spriteY,newCharacter);
 				newSprite = boyfriend;
@@ -1122,6 +1134,7 @@ class PlayState extends MusicBeatState
 				newSprite = new Character(spriteX,spriteY,newCharacter);
 			}
 
+
 			if (dad.curCharacter.contains('shaggy'))
 			{
 				shaggyT = new FlxTrail(dad, null, 5, 7, 0.3, 0.001);
@@ -1130,6 +1143,15 @@ class PlayState extends MusicBeatState
 
 			newSprite.x = spriteX;
 			newSprite.y = spriteY;
+			if(prev=='shaggy'){
+				if(dad.curCharacter=='shaggypowerup'){
+					newSprite.y -=160;
+					newSprite.x -=200;
+				}else if (dad.curCharacter=='ui_shaggy'){
+					newSprite.y -=120;
+					newSprite.x -=160;
+				}
+			}
 
 			luaSprites[spriteName]=newSprite;
 			add(newSprite);
@@ -1983,6 +2005,13 @@ class PlayState extends MusicBeatState
 						var sh_toy = -2450 + -Math.sin((rotRateSh * 2) * sh_s) * sh_r * 0.45;
 						var sh_tox = -330 -Math.cos(rotRateSh* sh_s) * sh_r;
 
+						if(dad.curCharacter=='shaggypowerup'){
+							sh_toy -=160;
+							sh_tox -=200;
+						}else if (dad.curCharacter=='ui_shaggy'){
+							sh_toy -=120;
+							sh_tox -=160;
+						}
 						var gf_tox = 100 + Math.sin(rotRateGf) * 200;
 						var gf_toy = -2000 -Math.sin(rotRateGf) * 80;
 
@@ -2032,19 +2061,19 @@ class PlayState extends MusicBeatState
 			lua.call("update",[elapsed]);
 		}
 
-		iconP1.visible = ScoreUtils.botPlay?false:modchart.hudVisible;
-		iconP2.visible = ScoreUtils.botPlay?false:modchart.hudVisible;
-		healthBar.visible = ScoreUtils.botPlay?false:modchart.hudVisible;
-		healthBarBG.visible = ScoreUtils.botPlay?false:modchart.hudVisible;
-		sicksTxt.visible = ScoreUtils.botPlay?false:modchart.hudVisible;
-		badsTxt.visible = ScoreUtils.botPlay?false:modchart.hudVisible;
-		shitsTxt.visible = ScoreUtils.botPlay?false:modchart.hudVisible;
-		goodsTxt.visible = ScoreUtils.botPlay?false:modchart.hudVisible;
-		missesTxt.visible = ScoreUtils.botPlay?false:modchart.hudVisible;
-		highComboTxt.visible = ScoreUtils.botPlay?false:modchart.hudVisible;
+		iconP1.visible = modchart.hudVisible;
+		iconP2.visible = modchart.hudVisible;
+		healthBar.visible = modchart.hudVisible;
+		healthBarBG.visible = modchart.hudVisible;
+		sicksTxt.visible = modchart.hudVisible;
+		badsTxt.visible = modchart.hudVisible;
+		shitsTxt.visible = modchart.hudVisible;
+		goodsTxt.visible = modchart.hudVisible;
+		missesTxt.visible = modchart.hudVisible;
+		highComboTxt.visible = modchart.hudVisible;
 		scoreTxt.visible = modchart.hudVisible;
 		if(presetTxt!=null)
-			presetTxt.visible = ScoreUtils.botPlay?false:modchart.hudVisible;
+			presetTxt.visible = modchart.hudVisible;
 
 
 		super.update(elapsed);
@@ -2056,6 +2085,9 @@ class PlayState extends MusicBeatState
 			health=0;
 		}
 		previousHealth=health;
+		if(FlxG.keys.justPressed.THREE){
+			camHUD.visible=!camHUD.visible;
+		}
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
 			persistentUpdate = false;
@@ -2430,7 +2462,17 @@ class PlayState extends MusicBeatState
 					strumLine = playerStrumLines.members[idx%9];
 					alpha = refReceptors.members[idx%9].alpha;
 					angle = refReceptors.members[idx%9].angle;
+					if(inCutscene){
+						alpha = FlxMath.lerp(alpha,0,0.06);
+						refReceptors.members[idx%9].alpha=alpha;
+					}
+				}else{
+					if(inCutscene){
+						alpha = FlxMath.lerp(alpha,0,0.06);
+						opponentRefReceptors.members[idx%9].alpha=alpha;
+					}
 				}
+
 				if(modchart.opponentNotesFollowReceptors && idx>8 || idx<=8 && modchart.playerNotesFollowReceptors){
 					note.x = strumLine.x;
 					note.y = strumLine.y;
@@ -3120,7 +3162,7 @@ class PlayState extends MusicBeatState
 		if(boyfriend.curCharacter=='dad')
 			bfVar=6.1;
 
-		if (boyfriend.holdTimer > Conductor.stepCrochet * bfVar * 0.001 && !up && !down && !right && !left)
+		if (boyfriend.holdTimer > Conductor.stepCrochet * bfVar * 0.001 && !holdArray.contains(true))
 		{
 			if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
 			{
