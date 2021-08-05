@@ -39,7 +39,9 @@ class TitleState extends MusicBeatState
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
-	var ngSpr:FlxSprite;
+	var snowSpr:FlxSprite;
+	var nebSpr:FlxSprite;
+	var retSpr:FlxSprite;
 
 	var curWacky:Array<String> = [];
 
@@ -198,13 +200,31 @@ class TitleState extends MusicBeatState
 
 		credTextShit.visible = false;
 
-		ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
-		add(ngSpr);
-		ngSpr.visible = false;
-		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
-		ngSpr.updateHitbox();
-		ngSpr.screenCenter(X);
-		ngSpr.antialiasing = true;
+		snowSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('snow'));
+		add(snowSpr);
+		snowSpr.visible = false;
+		snowSpr.setGraphicSize(Std.int(snowSpr.width * 0.8));
+		snowSpr.updateHitbox();
+		snowSpr.screenCenter(X);
+		snowSpr.x -= 200;
+		snowSpr.antialiasing = true;
+
+		nebSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('nebport'));
+		add(nebSpr);
+		nebSpr.visible = false;
+		nebSpr.setGraphicSize(Std.int(nebSpr.width * 0.8));
+		nebSpr.updateHitbox();
+		nebSpr.screenCenter(X);
+		nebSpr.x += 200;
+		nebSpr.antialiasing = true;
+
+		retSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('RetroSpecter'));
+		add(retSpr);
+		retSpr.visible = false;
+		retSpr.setGraphicSize(Std.int(retSpr.width * 0.8));
+		retSpr.updateHitbox();
+		retSpr.screenCenter(X);
+		retSpr.antialiasing = true;
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -308,7 +328,7 @@ class TitleState extends MusicBeatState
 				{
 					FlxG.switchState(new MainMenuState());
 				}*/
-				FlxG.switchState(new MainMenuState());
+				FlxG.switchState(new ModchartDisclaimer());
 			});
 			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 		}
@@ -368,7 +388,7 @@ class TitleState extends MusicBeatState
 		switch (curBeat)
 		{
 			case 1:
-				createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
+				createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsker']);
 			// credTextShit.visible = true;
 			case 3:
 				addMoreText('present');
@@ -380,37 +400,41 @@ class TitleState extends MusicBeatState
 			// credTextShit.text = 'In association \nwith';
 			// credTextShit.screenCenter();
 			case 5:
-				createCoolText(['In association', 'with']);
+				createCoolText(['Mod by']);
 			case 7:
-				addMoreText('newgrounds');
-				ngSpr.visible = true;
+				addMoreText('Snow and Nebula');
+				snowSpr.visible = true;
+				nebSpr.visible = true;
 			// credTextShit.text += '\nNewgrounds';
 			case 8:
 				deleteCoolText();
-				ngSpr.visible = false;
+				snowSpr.visible = false;
+				nebSpr.visible = false;
 			// credTextShit.visible = false;
 
 			// credTextShit.text = 'Shoutouts Tom Fulp';
 			// credTextShit.screenCenter();
 			case 9:
-				createCoolText([curWacky[0]]);
+				createCoolText(["Remix by"]);
 			// credTextShit.visible = true;
 			case 11:
-				addMoreText(curWacky[1]);
+				addMoreText("RetroSpecter");
+				retSpr.visible=true;
 			// credTextShit.text += '\nlmao';
 			case 12:
+				retSpr.visible=false;
 				deleteCoolText();
 			// credTextShit.visible = false;
 			// credTextShit.text = "Friday";
 			// credTextShit.screenCenter();
 			case 13:
-				addMoreText('Friday');
+				addMoreText('RetroSpecter');
 			// credTextShit.visible = true;
 			case 14:
-				addMoreText('Night');
+				addMoreText('God');
 			// credTextShit.text += '\nNight';
 			case 15:
-				addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
+				addMoreText('Eater'); // credTextShit.text += '\nFunkin';
 
 			case 16:
 				Conductor.changeBPM(200);
@@ -424,7 +448,9 @@ class TitleState extends MusicBeatState
 	{
 		if (!skippedIntro)
 		{
-			remove(ngSpr);
+			remove(snowSpr);
+			remove(retSpr);
+			remove(nebSpr);
 
 			FlxG.camera.flash(FlxColor.WHITE, 4);
 			remove(credGroup);

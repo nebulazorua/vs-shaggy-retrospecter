@@ -1,8 +1,2 @@
 idle -8 -28
-stand -8 -28
-powerdown -8 -28
 YOUREFUCKED -8 -28
-singUP -8 -28
-singRIGHT -8 -28
-singLEFT -8 -28
-singDOWN -8 -28

@@ -48,7 +48,7 @@ class OptionsMenu extends MusicBeatState
 			new ToggleOption("downScroll","Downscroll","Do arrows come from the top coming down"),
 			new ToggleOption("middleScroll","Middlescroll","Are arrows placed in the middle of the screen"),
 			new ToggleOption("menuFlash","Flashing in menus","Do the background and buttons flash when selecting them in menus"),
-			new ToggleOption("newInput","New Input","New input is a quaver-like system where each lane handles its own notes"),
+			new ToggleOption("newInput","Andromeda input system","New input is a quaver-like system where each lane handles its own notes"),
 			new ToggleOption("hitSound","Hit sounds","Play a click sound when you hit a note"),
 			new ToggleOption("freeplayPreview","Song preview in freeplay","Do songs get played when selecting them in the freeplay menu"),
 			new OptionCategory("Effects",[

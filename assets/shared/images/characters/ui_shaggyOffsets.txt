@@ -1,7 +1,5 @@
 idle -150 41
-stand -330 -120
 powerdown -150 40
-YOUREFUCKED -148 40
 singUP -86 90
 singRIGHT -100 20
 singLEFT -160 20

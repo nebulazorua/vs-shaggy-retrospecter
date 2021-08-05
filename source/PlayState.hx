@@ -1106,14 +1106,14 @@ class PlayState extends MusicBeatState
 				boyfriend = new Boyfriend(spriteX,spriteY,newCharacter);
 				newSprite = boyfriend;
 				bfLua.sprite = boyfriend;
-				//iconP1.changeCharacter(newCharacter);
+				iconP1.changeCharacter(newCharacter);
 			}else if(spriteName=="dad"){
 				if(shaggyT!=null)
 					remove(shaggyT);
 				dad = new Character(spriteX,spriteY,newCharacter);
 				newSprite = dad;
 				dadLua.sprite = dad;
-				//iconP2.changeCharacter(newCharacter);
+				iconP2.changeCharacter(newCharacter);
 			}else if(spriteName=="gf"){
 				gf = new Character(spriteX,spriteY,newCharacter);
 				newSprite = gf;
@@ -1692,9 +1692,9 @@ class PlayState extends MusicBeatState
 					var dir = dirs[idx];
 					var dir2 = dirs2[idx];
 					babyArrow.x += Note.swagWidth*idx;
-					babyArrow.animation.addByPrefix('static', 'arrow${dir2.toUpperCase()}');
-					babyArrow.animation.addByPrefix('pressed', '${dir} press', 24, false);
-					babyArrow.animation.addByPrefix('confirm', '${dir} confirm', 24, false);
+					babyArrow.animation.addByPrefix('static', 'arrow${dir2.toUpperCase()}0');
+					babyArrow.animation.addByPrefix('pressed', '${dir} press0', 24, false);
+					babyArrow.animation.addByPrefix('confirm', '${dir} confirm0', 24, false);
 			}
 
 			babyArrow.updateHitbox();
@@ -2076,6 +2076,7 @@ class PlayState extends MusicBeatState
 			DiscordClient.changePresence(detailsPausedText + SONG.song + " (" + storyDifficultyText + ")", grade + " | Acc: " + truncateFloat(accuracy*100,2) + "%", iconRPC);
 			#end
 		}
+		#if debug
 		if (FlxG.keys.justPressed.TWO){
 			var newPos =Conductor.songPosition+20000;
 			if(newPos>FlxG.sound.music.length){
@@ -2099,25 +2100,26 @@ class PlayState extends MusicBeatState
 				}
 			});
 
-				for(i in 0...unspawnNotes.length){
-					var note:Note = unspawnNotes[0];
-					if(note==null || note.strumTime-500>=newPos){
-						break;
-					}
-					if(note.strumTime-500<newPos){
-						note.kill();
-						unspawnNotes.splice(0,1);
-						note.destroy();
-					}
+			for(i in 0...unspawnNotes.length){
+				var note:Note = unspawnNotes[0];
+				if(note==null || note.strumTime-500>=newPos){
+					break;
 				}
-				FlxG.sound.music.pause();
-				vocals.pause();
-				FlxG.sound.music.time=newPos;
-				vocals.time=newPos;
-				FlxG.sound.music.play();
-				vocals.play();
-				Conductor.songPosition=newPos;
+				if(note.strumTime-500<newPos){
+					note.kill();
+					unspawnNotes.splice(0,1);
+					note.destroy();
+				}
 			}
+			FlxG.sound.music.pause();
+			vocals.pause();
+			FlxG.sound.music.time=newPos;
+			vocals.time=newPos;
+			FlxG.sound.music.play();
+			vocals.play();
+			Conductor.songPosition=newPos;
+		}
+		#end
 		if (FlxG.keys.justPressed.SEVEN)
 		{
 
@@ -2343,11 +2345,6 @@ class PlayState extends MusicBeatState
 		// better streaming of shit
 
 		// RESET = Quick Game Over Screen
-		if (controls.RESET)
-		{
-			health = 0;
-			trace("RESET = True");
-		}
 
 		// CHEAT = brandon's a pussy
 		if (controls.CHEAT)
