@@ -2524,14 +2524,14 @@ class PlayState extends MusicBeatState
 						daNote.visible=false;
 					}
 
-					var brr = strumLine.y + Note.swagWidth/2;
+					var brr = strumLine.y + (Note.swagWidth*0.46)/2;
 					daNote.y = getYPosition(daNote);
 					if(currentOptions.downScroll){
 						if(daNote.isSustainNote){
 							if(daNote.animation.curAnim.name.endsWith("end") && daNote.prevNote!=null){
-								daNote.y += daNote.prevNote.height/2;
+								daNote.y += daNote.prevNote.height*0.46;
 							}else{
-								daNote.y += daNote.height/2;
+								daNote.y += (daNote.height*0.46)/2;
 							}
 						}
 						if (daNote.isSustainNote
@@ -2545,6 +2545,9 @@ class PlayState extends MusicBeatState
 							daNote.clipRect = swagRect;
 						}
 					}else{
+						if(daNote.isSustainNote){
+							daNote.y-=(daNote.height*0.46)/2;
+						}
 						if (daNote.isSustainNote
 							&& daNote.y + daNote.offset.y * daNote.scale.y <= brr
 							&& (!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit))))
