@@ -851,6 +851,10 @@ class PlayState extends MusicBeatState
 		missesTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		missesTxt.scrollFactor.set();
 
+		if(currentOptions.downScroll){
+			scoreTxt.y = healthBarBG.y - 50;
+		}
+
 		missesTxt.text = "Miss: " + misses;
 		sicksTxt.text = "Sick: " + sicks;
 		goodsTxt.text = "Good: " + goods;
@@ -864,14 +868,6 @@ class PlayState extends MusicBeatState
 			presetTxt.visible=true;
 		}
 
-		add(highComboTxt);
-		add(sicksTxt);
-		add(goodsTxt);
-		add(badsTxt);
-		add(shitsTxt);
-		add(missesTxt);
-		add(presetTxt);
-
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
 		add(iconP1);
@@ -879,6 +875,14 @@ class PlayState extends MusicBeatState
 		iconP2 = new HealthIcon(SONG.player2, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
+
+		add(highComboTxt);
+		add(sicksTxt);
+		add(goodsTxt);
+		add(badsTxt);
+		add(shitsTxt);
+		add(missesTxt);
+		add(presetTxt);
 
 		if(ScoreUtils.botPlay){
 			var botplayTxt = new FlxText(0, 80, 0, "[BOTPLAY]", 30);
@@ -888,6 +892,10 @@ class PlayState extends MusicBeatState
 			botplayTxt.scrollFactor.set();
 
 			add(botplayTxt);
+
+			if(currentOptions.downScroll){
+				botplayTxt.y = FlxG.height-80;
+			}
 		}
 
 
@@ -2522,7 +2530,7 @@ class PlayState extends MusicBeatState
 					if(currentOptions.downScroll){
 						if(daNote.isSustainNote){
 							if(daNote.animation.curAnim.name.endsWith("end") && daNote.prevNote!=null){
-								daNote.y += daNote.prevNote.height;
+								daNote.y += daNote.prevNote.height/2;
 							}else{
 								daNote.y += daNote.height/2;
 							}
@@ -3347,13 +3355,13 @@ class PlayState extends MusicBeatState
 
 		switch (direction)
 		{
-			case 0:
+			case 0 | 5:
 				boyfriend.playAnim('singLEFTmiss', true);
-			case 1:
+			case 1 | 6:
 				boyfriend.playAnim('singDOWNmiss', true);
-			case 2:
+			case 2 | 4 | 7:
 				boyfriend.playAnim('singUPmiss', true);
-			case 3:
+			case 3 | 8:
 				boyfriend.playAnim('singRIGHTmiss', true);
 		}
 
