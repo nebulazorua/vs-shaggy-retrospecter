@@ -3290,7 +3290,7 @@ class PlayState extends MusicBeatState
 					};
 				}else{
 					if(currentOptions.ghosttapping==false){
-						noteMiss(idx);
+						noteMiss(controlArray.indexOf(true));
 					}
 				};
 				}
