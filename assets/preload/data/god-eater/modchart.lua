@@ -282,8 +282,8 @@ function update(elapsed)
 			window.x = winX + (math.random(-shakeShit*100,shakeShit*100)/100)*.5;
 			window.y = winY + (math.random(-shakeShit*100,shakeShit*100)/100)*.5;
 		else
-			window.x = winX + (math.random(-shakeShit*100,shakeShit*100)/100)*2;
-			window.y = winY + (math.random(-shakeShit*100,shakeShit*100)/100)*2;
+			window.x = winX + (math.random(-shakeShit*100,shakeShit*100)/100)*3;
+			window.y = winY + (math.random(-shakeShit*100,shakeShit*100)/100)*3;
 		end
 	end
 
