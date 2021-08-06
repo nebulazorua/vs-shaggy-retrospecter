@@ -3282,7 +3282,7 @@ class PlayState extends MusicBeatState
 					for (idx in 0...controlArray.length){
 						var pressed = controlArray[idx];
 						if(pressed && ignoreList.contains(idx)==false && currentOptions.ghosttapping==false )
-							badNoteCheck();
+							noteMiss(idx);
 					}
 					for (daNote in possibleNotes){
 						if(controlArray[daNote.noteData])
@@ -3290,7 +3290,7 @@ class PlayState extends MusicBeatState
 					};
 				}else{
 					if(currentOptions.ghosttapping==false){
-						badNoteCheck();
+						noteMiss(idx);
 					}
 				};
 				}
