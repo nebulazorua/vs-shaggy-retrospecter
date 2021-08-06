@@ -783,7 +783,9 @@ class PlayState extends MusicBeatState
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
 		add(healthBarBG);
-
+		if(currentOptions.downScroll){
+			healthBarBG.y = FlxG.height*.1;
+		}
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
@@ -887,7 +889,7 @@ class PlayState extends MusicBeatState
 
 			add(botplayTxt);
 		}
-		
+
 
 		strumLineNotes.cameras = [camHUD];
 		renderedNotes.cameras = [camHUD];
@@ -1053,9 +1055,6 @@ class PlayState extends MusicBeatState
 		scrollSpeed = (currentOptions.downScroll?-1:1);
 		if(currentOptions.downScroll){
 			strumLine.y = FlxG.height-150;
-		}
-		if(currentOptions.downScroll){
-			healthBarBG.y = FlxG.height*.1;
 		}
 
 
