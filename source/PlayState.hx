@@ -3115,13 +3115,13 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		var hitSomething=false;
 		// probably a naive way but idc
 		if(controlArray.contains(true)){
 			for(idx in 0...controlArray.length){
 				var pressed = controlArray[idx];
 				if(pressed){
 					var nextHit = noteLanes[idx][0];
+					var hitSomething=false;
 					if(nextHit!=null){
 						if(nextHit.canBeHit && !nextHit.wasGoodHit){
 							hitSomething=true;
@@ -3129,10 +3129,10 @@ class PlayState extends MusicBeatState
 							noteHit(nextHit);
 						}
 					}
+					if(!hitSomething && currentOptions.ghosttapping==false){
+						noteMiss(idx);
+					}
 				}
-			}
-			if(!hitSomething && currentOptions.ghosttapping==false){
-				badNoteCheck();
 			}
 		}
 
